@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { ThemeProvider } from "../components/ThemeProvider/ThemeProvider";
 
 export const metadata: Metadata = {
-  title: "Project Management Frontend",
-  description: "Project Management Frontend Application",
+  title: "Mirant | Project Management",
+  description: "Mirant - Modern Proje Yönetimi SaaS Uygulaması",
 };
 
 export default function RootLayout({
@@ -14,7 +15,9 @@ export default function RootLayout({
   return (
     <html lang="tr">
       <body>
-        {children}
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

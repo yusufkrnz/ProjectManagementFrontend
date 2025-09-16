@@ -1,7 +1,90 @@
 @import "tailwindcss";
 
 body {
-  background: white;
-  color: black;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Koyu tema desteği için */
+.dark {
+  color-scheme: dark;
+}
+
+.light {
+  color-scheme: light;
+}
+
+/* Test için manuel koyu tema stilleri */
+.dark .bg-white {
+  background-color: #1f2937 !important;
+}
+
+.dark .text-gray-900 {
+  color: #f9fafb !important;
+}
+
+.dark .text-gray-600 {
+  color: #d1d5db !important;
+}
+
+.dark .bg-gray-50 {
+  background-color: #374151 !important;
+}
+
+/* Marquee (Clients strip) */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes marquee-reverse {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+
+.marquee {
+  position: relative;
+  overflow: hidden;
+}
+
+.marquee::before,
+.marquee::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.marquee::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(255,255,255,1), rgba(255,255,255,0));
+}
+
+.marquee::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(255,255,255,1), rgba(255,255,255,0));
+}
+
+.dark .marquee::before {
+  background: linear-gradient(to right, rgba(17,24,39,1), rgba(17,24,39,0));
+}
+
+.dark .marquee::after {
+  background: linear-gradient(to left, rgba(17,24,39,1), rgba(17,24,39,0));
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+
+.marquee--reverse .marquee-track {
+  animation: marquee-reverse 30s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
 }
