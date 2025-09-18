@@ -3,13 +3,14 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Sidebar, FabMenu, DashHero, OverviewCards, RecentProjects, Inbox, ActivityFeed } from './components';
+import { ProjectSetupModal } from '../Projects/components';
 
 const Dashboard = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  // FAB menüsü bileşene taşındı
+  const [showProjectModal, setShowProjectModal] = useState(false);
 
   useEffect(() => {
     // Authentication kontrolü
@@ -47,7 +48,18 @@ const Dashboard = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // FAB menüsü hesaplamaları bileşene taşındı
+  // Listen for custom event to open project modal
+  useEffect(() => {
+    const handleOpenProjectModal = () => setShowProjectModal(true);
+    window.addEventListener('openProjectModal', handleOpenProjectModal);
+    return () => window.removeEventListener('openProjectModal', handleOpenProjectModal);
+  }, []);
+
+  const handleCreateProject = (data: any) => {
+    console.log('Project created:', data);
+    setShowProjectModal(false);
+    router.push('/Projects'); // Redirect to Projects page after creation
+  };
 
   if (isLoading) {
     return (
@@ -75,7 +87,7 @@ const Dashboard = () => {
         <div className="h-full p-6">
           <div className="h-full max-w-7xl mx-auto">
             <div className="space-y-6">
-              <DashHero onCreateProject={() => {}} />
+              <DashHero onCreateProject={() => setShowProjectModal(true)} />
               <OverviewCards />
 
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -93,6 +105,13 @@ const Dashboard = () => {
 
         {/* FAB Menu */}
         <FabMenu />
+
+        {/* Project Setup Modal */}
+        <ProjectSetupModal
+          open={showProjectModal}
+          onClose={() => setShowProjectModal(false)}
+          onCreate={handleCreateProject}
+        />
       </main>
     </div>
   );

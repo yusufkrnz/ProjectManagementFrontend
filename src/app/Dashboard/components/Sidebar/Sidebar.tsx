@@ -102,7 +102,7 @@ export const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
       {/* Sidebar */}
       <div 
         className={`
-          fixed inset-y-0 left-0 z-50 bg-white dark:bg-gray-900 shadow-lg border-r border-gray-200 dark:border-gray-700 transition-all duration-300 ease-in-out
+          fixed inset-y-0 left-0 z-50 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 transition-all duration-300 ease-in-out
           ${isExpanded ? 'w-64' : 'w-16'}
         `}
         onMouseEnter={() => !isOpen && setIsHovered(true)}
@@ -110,15 +110,15 @@ export const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
       >
         <div className="flex flex-col h-full">
           {/* Logo ve Toggle */}
-          <div className="flex items-center justify-between px-4 py-4 border-b border-gray-200 dark:border-gray-700">
+          <div className="flex items-center justify-between px-4 py-4 border-b border-gray-200 dark:border-gray-800">
             <div className={`flex items-center transition-all duration-300 ${isExpanded ? 'opacity-100' : 'opacity-0 w-0'}`}>
-              <h1 className="text-xl font-bold text-gray-900 dark:text-white whitespace-nowrap">
+              <h1 className="text-lg font-semibold text-gray-900 dark:text-white whitespace-nowrap">
                 Mirant
               </h1>
             </div>
             <button
               onClick={toggleSidebar}
-              className="p-1.5 rounded-md text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors flex-shrink-0"
+              className="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors flex-shrink-0"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 {isOpen ? (
@@ -131,26 +131,24 @@ export const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
           </div>
 
           {/* Kullanıcı Bilgisi */}
-          <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+          <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-800">
             <div className="flex items-center">
-              <div className="w-10 h-10 bg-indigo-100 dark:bg-indigo-900 rounded-full flex items-center justify-center flex-shrink-0">
-                <span className="text-indigo-600 dark:text-indigo-400 font-semibold text-sm">
-                  YK
-                </span>
+              <div className="w-10 h-10 bg-indigo-500 rounded-full flex items-center justify-center flex-shrink-0">
+                <span className="text-white font-medium text-sm">YK</span>
               </div>
               <div className={`ml-3 transition-all duration-300 ${isExpanded ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden'}`}>
                 <p className="text-sm font-medium text-gray-900 dark:text-white whitespace-nowrap">
                   Yusuf Kurnaz
                 </p>
                 <p className="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">
-                  Proje Yöneticisi
+                  Admin
                 </p>
               </div>
             </div>
           </div>
 
           {/* Navigasyon */}
-          <nav className="flex-1 px-4 py-3 space-y-1 overflow-y-auto">
+          <nav className="flex-1 px-4 py-4 space-y-1 overflow-y-auto">
             {navigation.map((item) => {
               const isActive = pathname === item.href;
               const Icon = item.icon;
@@ -160,10 +158,10 @@ export const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
                   key={item.name}
                   href={item.href}
                   className={`
-                    group flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors duration-200 relative
+                    group flex items-center px-3 py-2.5 text-sm font-medium rounded-lg transition-colors duration-200 relative
                     ${isActive
-                      ? 'bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-200'
-                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white'
+                      ? 'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400'
+                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white'
                     }
                   `}
                   title={!isExpanded ? item.name : undefined}
@@ -172,17 +170,19 @@ export const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
                   <span className={`ml-3 transition-all duration-300 ${isExpanded ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden'} whitespace-nowrap`}>
                     {item.name}
                   </span>
+                  
                   {item.badge && isExpanded && (
                     <span className={`
                       ml-auto px-2 py-0.5 text-xs rounded-full transition-all duration-300
                       ${isActive
-                        ? 'bg-indigo-200 dark:bg-indigo-800 text-indigo-800 dark:text-indigo-200'
+                        ? 'bg-indigo-100 dark:bg-indigo-800 text-indigo-700 dark:text-indigo-200'
                         : 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
                       }
                     `}>
                       {item.badge}
                     </span>
                   )}
+                  
                   {item.badge && !isExpanded && (
                     <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] bg-red-500 text-white rounded-full flex items-center justify-center text-xs font-bold shadow-md border-2 border-white dark:border-gray-900">
                       {item.badge}
@@ -194,12 +194,12 @@ export const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
           </nav>
 
           {/* Alt Kısım */}
-          <div className="px-4 py-3 border-t border-gray-200 dark:border-gray-700">
+          <div className="px-4 py-3 border-t border-gray-200 dark:border-gray-800">
             <div className="space-y-3">
               {/* Logout Button */}
               <button
                 onClick={handleLogout}
-                className="w-full flex items-center px-3 py-2 text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-md transition-colors"
+                className="w-full flex items-center px-3 py-2 text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
                 title={!isExpanded ? 'Çıkış Yap' : undefined}
               >
                 <svg className="h-5 w-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">

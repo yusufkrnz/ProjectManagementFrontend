@@ -42,6 +42,10 @@ export const FabMenu: React.FC = () => {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 9a2 2 0 00-2 2v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2M5 9V7a2 2 0 012-2h10a2 2 0 012 2v2M5 9h14" />
         </svg>
       ),
+      onClick: () => {
+        // Modal'ı açmak için parent component'e event gönder
+        window.dispatchEvent(new CustomEvent('openProjectModal'));
+      },
     },
     {
       key: 'fikir',
